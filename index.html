@@ -2,592 +2,765 @@
 <html lang="id">
 
 <head>
-    <meta charset="UTF-8" /> 
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#6366f1" />
-    <link rel="icon" href="icons/icon-192x192-A.png" type="image/png" /> 
-    <!-- ini untuk icon atau gambar-->
-    <link rel="manifest" href="manifest.json">
-    <!-- setingan untuk ke pwa bulder yaitu mode hp membuat aplikasi adroid -->
-    <title>TaskFlow - Kelola Tugas Anda</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#CC563D" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="icons/icon-192x192-A.png" type="image/png" />
+  <title>Pawon Kita - Resep Keluarga</title>
+  <style>
+    /* Style Modern untuk Pawon Kita */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-        :root {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --primary-light: #818cf8;
-            --bg-dark: #ffffff;
-            --bg-card: #1e293b;
-            --text-light: #f8fafc;
-            --text-gray: #cbd5e1;
-            --success: #22c55e;
-            --danger: #ef4444;
-            --warning: #f59e0b;
-        }
+    :root {
+      --primary: #CC563D;
+      --primary-dark: #A8432E;
+      --primary-light: #E27A5F;
+      --bg: #FDF8F5;
+      --card-bg: #FFFFFF;
+      --text: #2D2A28;
+      --text-light: #6B625C;
+      --border: #F0E4DC;
+      --shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+      --shadow-hover: 0 12px 28px rgba(0, 0, 0, 0.08);
+    }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, var(--bg-dark) 0%, #1856bb 100%);
-            color: var(--text-light);
-            min-height: 100vh;
-            padding-bottom: 80px;
-        }
+    body {
+      background-color: var(--bg);
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      color: var(--text);
+      line-height: 1.5;
+      min-height: 100vh;
+    }
 
-        .header {
-            background: #1856bb;
-            backdrop-filter: blur(10px);
-            padding: 20px;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            border-bottom: 1px solid rgba(99, 102, 241, 0.2);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-        }
+    /* Header */
+    .header {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      padding: 28px 20px 24px;
+      text-align: center;
+      border-radius: 0 0 28px 28px;
+      box-shadow: var(--shadow);
+    }
 
-        .header-content {
-            max-width: 800px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    .header h1 {
+      font-size: 2rem;
+      letter-spacing: -0.5px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
 
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+    .header p {
+      opacity: 0.9;
+      font-size: 0.95rem;
+    }
 
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
-        }
+    /* Main Container */
+    .main {
+      padding: 20px 16px 32px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
 
-        h1 {
-            font-size: 24px;
-            font-weight: 700;
-        }
+    /* Card */
+    .card {
+      background: var(--card-bg);
+      padding: 20px;
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      margin-bottom: 24px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      border: 1px solid var(--border);
+    }
 
-        .stats {
-            display: flex;
-            gap: 16px;
-            font-size: 14px;
-            color: var(--text-gray);
-        }
+    .card:hover {
+      box-shadow: var(--shadow-hover);
+    }
 
-        .stat-item {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
+    .card h2 {
+      font-size: 1.4rem;
+      margin-bottom: 16px;
+      color: var(--primary-dark);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-left: 4px solid var(--primary);
+      padding-left: 12px;
+    }
 
-        .stat-number {
-            color: var(--primary-light);
-            font-weight: 700;
-        }
+    /* Recipe Grid */
+    .recipe-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 16px;
+      margin-top: 8px;
+    }
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 24px 20px;
-        }
+    .recipe-item {
+      background: white;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    }
 
-        .input-section {
-            background: var(--bg-card);
-            padding: 24px;
-            border-radius: 16px;
-            margin-bottom: 24px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(99, 102, 241, 0.1);
-        }
+    .recipe-item:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--primary-light);
+    }
 
-        .input-group {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 16px;
-        }
+    .recipe-image {
+      width: 100%;
+      height: 130px;
+      object-fit: cover;
+      background: #F5EDE8;
+      display: block;
+    }
 
-        input[type="text"] {
-            flex: 1;
-            padding: 14px 18px;
-            background: var(--bg-dark);
-            border: 2px solid rgba(99, 102, 241, 0.3);
-            border-radius: 12px;
-            color: var(--text-light);
-            font-size: 16px;
-            transition: all 0.3s ease;
-        }
+    .recipe-no-image {
+      width: 100%;
+      height: 130px;
+      background: linear-gradient(135deg, #F5EDE8, #EDE3DC);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      color: #CCAB9A;
+    }
 
-        input[type="text"]:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
-        }
+    .recipe-info {
+      padding: 12px;
+      text-align: center;
+      font-weight: 600;
+      color: var(--primary-dark);
+      background: white;
+      word-break: break-word;
+      font-size: 0.9rem;
+    }
 
-        .btn {
-            padding: 14px 28px;
-            border: none;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+    /* Empty state */
+    .empty-recipes {
+      text-align: center;
+      padding: 48px 20px;
+      color: var(--text-light);
+      background: #FEFAF7;
+      border-radius: 20px;
+      font-size: 0.95rem;
+    }
 
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            color: white;
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
-        }
+    /* Form */
+    .form-group {
+      margin-bottom: 18px;
+    }
 
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
-        }
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      font-size: 0.85rem;
+      color: var(--primary-dark);
+    }
 
-        .btn-primary:active {
-            transform: translateY(0);
-        }
+    input, textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 16px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+      background: white;
+    }
 
-        .priority-selector {
-            display: flex;
-            gap: 8px;
-        }
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(204,86,61,0.1);
+    }
 
-        .priority-btn {
-            flex: 1;
-            padding: 10px;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            background: transparent;
-            color: var(--text-gray);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 14px;
-        }
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
 
-        .priority-btn.active {
-            border-color: currentColor;
-            background: rgba(255, 255, 255, 0.1);
-            font-weight: 600;
-        }
+    /* Upload foto */
+    .photo-preview {
+      margin-top: 12px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
 
-        .priority-btn.high {
-            color: var(--danger);
-        }
+    .preview-img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 16px;
+      border: 2px solid var(--border);
+    }
 
-        .priority-btn.medium {
-            color: var(--warning);
-        }
+    .preview-placeholder {
+      width: 80px;
+      height: 80px;
+      background: #F5EDE8;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      color: #CCAB9A;
+    }
 
-        .priority-btn.low {
-            color: var(--success);
-        }
+    .btn-upload {
+      background: #EFE4DD;
+      color: #5C4B42;
+      padding: 8px 16px;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      width: auto;
+      display: inline-block;
+      margin-top: 8px;
+    }
 
-        .filter-tabs {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 20px;
-            overflow-x: auto;
-            padding-bottom: 4px;
-        }
+    .btn-upload:hover {
+      background: #E2D4CC;
+      transform: none;
+    }
 
-        .filter-tab {
-            padding: 10px 20px;
-            background: var(--bg-card);
-            border: 2px solid transparent;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-            font-size: 14px;
-            font-weight: 500;
-            color: #ffffff;
-        }
+    button {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 12px 18px;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      width: 100%;
+      margin-top: 4px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
 
-        .filter-tab.active {
-            background: var(--primary);
-            border-color: var(--primary-light);
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
-        }
+    button:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 12px rgba(204,86,61,0.2);
+    }
 
-        .tasks-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+    button:active {
+      transform: translateY(1px);
+    }
 
-        .task-item {
-            background: var(--bg-card);
-            padding: 20px;
-            border-radius: 12px;
-            border-left: 4px solid;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            transition: all 0.3s ease;
-            animation: slideIn 0.3s ease;
-        }
+    /* Modal Detail Resep */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(4px);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      padding: 20px;
+    }
 
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
+    .modal-content {
+      background: white;
+      max-width: 520px;
+      width: 100%;
+      border-radius: 32px;
+      padding: 0;
+      max-height: 85vh;
+      overflow-y: auto;
+      animation: fadeInUp 0.3s ease;
+    }
 
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+    .modal-header {
+      position: relative;
+    }
 
-        .task-item:hover {
-            transform: translateX(4px);
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-        }
+    .modal-img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 32px 32px 0 0;
+      background: #F0E4DC;
+    }
 
-        .task-item.high {
-            border-left-color: var(--danger);
-        }
+    .modal-no-img {
+      width: 100%;
+      height: 180px;
+      background: linear-gradient(145deg, #F5EDE8, #EDE3DC);
+      border-radius: 32px 32px 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 64px;
+      color: #CCAB9A;
+    }
 
-        .task-item.medium {
-            border-left-color: var(--warning);
-        }
+    .modal-body {
+      padding: 20px 24px 24px;
+    }
 
-        .task-item.low {
-            border-left-color: var(--success);
-        }
+    .modal-body h3 {
+      color: var(--primary);
+      margin-bottom: 12px;
+      font-size: 1.6rem;
+    }
 
-        .task-checkbox {
-            width: 24px;
-            height: 24px;
-            border: 2px solid var(--primary);
-            border-radius: 6px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            transition: all 0.3s ease;
-        }
+    .modal-body h4 {
+      margin: 20px 0 10px;
+      color: var(--text);
+      font-size: 1rem;
+    }
 
-        .task-checkbox:hover {
-            background: rgba(99, 102, 241, 0.1);
-        }
+    .modal-body pre {
+      background: #FEF5F0;
+      padding: 14px;
+      border-radius: 18px;
+      white-space: pre-wrap;
+      font-family: monospace;
+      font-size: 0.9rem;
+      margin: 8px 0;
+      line-height: 1.5;
+    }
 
-        .task-checkbox.checked {
-            background: var(--primary);
-        }
+    .modal-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+    }
 
-        .task-content {
-            flex: 1;
-        }
+    .modal-actions button {
+      flex: 1;
+      margin: 0;
+    }
 
-        .task-text {
-            font-size: 16px;
-            margin-bottom: 4px;
-        }
+    .close-modal-btn {
+      background: #e9e0da;
+      color: #3a2e28;
+    }
 
-        .task-text.completed {
-            text-decoration: line-through;
-            opacity: 0.6;
-        }
+    .delete-recipe {
+      background: #d9534f;
+    }
 
-        .task-meta {
-            display: flex;
-            gap: 12px;
-            font-size: 12px;
-            color: var(--text-gray);
-        }
+    .delete-recipe:hover {
+      background: #c9302c;
+    }
 
-        .task-time {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-        .task-actions {
-            display: flex;
-            gap: 8px;
-        }
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 24px 16px 28px;
+      font-size: 0.75rem;
+      color: #bcafa7;
+      background: #FFF9F5;
+      border-top: 1px solid var(--border);
+    }
 
-        .btn-icon {
-            width: 36px;
-            height: 36px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            font-size: 18px;
-        }
-
-        .btn-delete {
-            background: rgba(239, 68, 68, 0.1);
-            color: var(--danger);
-        }
-
-        .btn-delete:hover {
-            background: var(--danger);
-            color: white;
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            color: var(--text-gray);
-        }
-
-        .empty-icon {
-            font-size: 64px;
-            margin-bottom: 16px;
-            opacity: 0.5;
-        }
-
-        .progress-bar {
-            background: var(--bg-card);
-            height: 8px;
-            border-radius: 4px;
-            overflow: hidden;
-            margin: 16px 0;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--primary-light));
-            transition: width 0.5s ease;
-            border-radius: 4px;
-        }
-
-        @media (max-width: 640px) {
-            .header-content {
-                flex-direction: column;
-                gap: 12px;
-            }
-
-            .input-group {
-                flex-direction: column;
-            }
-
-            .stats {
-                width: 100%;
-                justify-content: space-around;
-            }
-        }
-
-        .logo h1 {
-            font-size: 50px;
-            font-weight: 800;
-        }
-    </style>
+    /* Test buttons */
+    .test-buttons {
+      display: flex;
+      gap: 12px;
+      margin: 0 16px 12px;
+    }
+    .test-btn {
+      background: #e7dfda;
+      color: #5c4b42;
+      box-shadow: none;
+      font-size: 0.8rem;
+      padding: 8px;
+    }
+    .test-btn:hover {
+      background: #d4c9c2;
+      transform: none;
+    }
+    .file-input-wrapper {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+    }
+    input[type="file"] {
+      padding: 10px;
+      font-size: 0.85rem;
+      background: #FEFAF7;
+    }
+  </style>
 </head>
 
 <body>
-    <header class="header">
-        <div class="header-content">
-            <div class="logo">
-                <div class="logo-icon">✓</div>
-                <h1 class="text-judul">TaskFlow</h1>
-            </div>
-            <div class="stats">
-                <div class="stat-item">
-                    <span>📝</span>
-                    <span>Total: <span class="stat-number" id="totalTasks">0</span></span>
-                </div>
-                <div class="stat-item">
-                    <span>✅</span>
-                    <span>Selesai: <span class="stat-number" id="completedTasks">0</span></span>
-                </div>
-            </div>
-        </div>
-    </header>
+  <header class="header">
+    <h1>📸 Pawon Kita</h1>
+    <p>Simpan Resep + Foto Masakan Keluarga</p>
+  </header>
 
-    <div class="container">
-        <div class="input-section">
-            <div class="input-group">
-                <input type="text" id="taskInput" placeholder="Tambahkan tugas baru..."
-                    onkeypress="if(event.key==='Enter') addTask()" />
-                <button class="btn btn-primary" onclick="addTask()">
-                    <span>➕</span>
-                    <span>Tambah</span>
-                </button>
-            </div>
-            <div class="priority-selector">
-                <button class="priority-btn high" onclick="setPriority('high')">🔴 Tinggi</button>
-                <button class="priority-btn medium active" onclick="setPriority('medium')">🟡 Sedang</button>
-                <button class="priority-btn low" onclick="setPriority('low')">🟢 Rendah</button>
-            </div>
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressBar" style="width: 0%"></div>
-            </div>
-        </div>
+  <main class="main">
+    <!-- Daftar Resep Dinamis dengan Foto -->
+    <section class="card">
+      <h2>🍽️ Koleksi Resep</h2>
+      <div id="recipeListContainer" class="recipe-grid">
+        <!-- Akan diisi JavaScript -->
+      </div>
+    </section>
 
-        <div class="filter-tabs">
-            <button class="filter-tab active" onclick="filterTasks('all')">Semua</button>
-            <button class="filter-tab" onclick="filterTasks('active')">Aktif</button>
-            <button class="filter-tab" onclick="filterTasks('completed')">Selesai</button>
-            <button class="filter-tab" onclick="filterTasks('high')">🔴 Prioritas Tinggi</button>
-            <button class="filter-tab" onclick="filterTasks('medium')">🟡 Prioritas Sedang</button>
-            <button class="filter-tab" onclick="filterTasks('low')">🟢 Prioritas Rendah</button>
-        </div>
+    <!-- Form Tambah Resep dengan Upload Foto -->
+    <section class="card">
+      <h2>✍️ Tambah Resep Baru</h2>
+      <div class="form-group">
+        <label>🍛 Nama Masakan</label>
+        <input type="text" placeholder="Contoh: Rawon Mbok Darmi" id="judulResep">
+      </div>
+      <div class="form-group">
+        <label>🥄 Bahan & Langkah</label>
+        <textarea id="bahanResep" placeholder="Tulis bahan-bahan dan cara membuat..."></textarea>
+      </div>
+      <div class="form-group">
+        <label>📷 Foto Masakan (opsional)</label>
+        <input type="file" id="fotoResep" accept="image/jpeg, image/png, image/jpg, image/webp">
+        <div id="previewFoto" class="photo-preview"></div>
+        <small style="color:#8B7A6F;">Pilih foto dari galeri atau kamera</small>
+      </div>
+      <button onclick="tambahResepBaru()">📌 Simpan ke Buku Resep</button>
+    </section>
+  </main>
 
-        <div class="tasks-list" id="tasksList"></div>
+  <!-- Tombol testing -->
+  <div class="test-buttons">
+    <button class="test-btn" onclick="alert('🔧 Tombol testing — Pawon Kita dengan fitur foto siap!')">🧪 Tombol 1 (Test)</button>
+    <button class="test-btn" onclick="tambahContohResep()">✨ Tambah Contoh Resep</button>
+  </div>
+
+  <!-- Modal Detail Resep dengan Foto -->
+  <div id="modalResep" class="modal">
+    <div class="modal-content">
+      <div id="modalFotoArea"></div>
+      <div class="modal-body">
+        <h3 id="modalJudul">-</h3>
+        <h4>📝 Bahan & Cara:</h4>
+        <pre id="modalIsi"></pre>
+        <div class="modal-actions">
+          <button class="close-modal-btn" onclick="tutupModal()">Tutup</button>
+          <button id="hapusModalBtn" class="delete-recipe" onclick="hapusResepDariModal()">🗑 Hapus</button>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <script>
-        let tasks = [];
-        let currentPriority = 'medium';
-        let currentFilter = 'all';
+  <footer class="footer">
+    <p>© 2026 Pawon Kita - Warisan Rasa Keluarga 🇮🇩 | 📸 Bisa tambah foto sendiri</p>
+  </footer>
 
-        function loadTasks() {
-            const saved = localStorage.getItem('taskflow_tasks');
-            if (saved) {
-                tasks = JSON.parse(saved);
-                renderTasks();
-            }
+  <script>
+    // ---------- DATA & PENYIMPANAN (LocalStorage) ----------
+    let resepKeluarga = [];
+    const STORAGE_KEY = 'pawon_kita_resep_foto';
+    let fotoTemporaryBase64 = null; // untuk preview sebelum simpan
+
+    // Preview foto dari input file
+    document.getElementById('fotoResep').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (!file) {
+        fotoTemporaryBase64 = null;
+        document.getElementById('previewFoto').innerHTML = '';
+        return;
+      }
+      
+      // Validasi tipe file
+      if (!file.type.match('image.*')) {
+        alert('Hanya file gambar yang diperbolehkan (JPEG, PNG, dll)');
+        this.value = '';
+        fotoTemporaryBase64 = null;
+        document.getElementById('previewFoto').innerHTML = '';
+        return;
+      }
+      
+      // Batasi ukuran 2MB
+      if (file.size > 2 * 1024 * 1024) {
+        alert('Ukuran foto maksimal 2MB. Silakan kompres atau pilih foto lain.');
+        this.value = '';
+        fotoTemporaryBase64 = null;
+        document.getElementById('previewFoto').innerHTML = '';
+        return;
+      }
+      
+      const reader = new FileReader();
+      reader.onload = function(ev) {
+        fotoTemporaryBase64 = ev.target.result;
+        document.getElementById('previewFoto').innerHTML = `
+          <img src="${fotoTemporaryBase64}" class="preview-img" alt="preview">
+          <span style="font-size:12px; color:#CC563D;">✓ Foto siap</span>
+        `;
+      };
+      reader.readAsDataURL(file);
+    });
+
+    // Load data dari localStorage
+    function muatDataResep() {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored) {
+        try {
+          resepKeluarga = JSON.parse(stored);
+        } catch(e) {
+          console.error("Gagal parse data", e);
+          resepKeluarga = [];
         }
+      } else {
+        // Data default dengan foto placeholder
+        resepKeluarga = [
+          { 
+            id: "resep1", 
+            nama: "Soto Nenek", 
+            bahan: "🥣 Bahan:\n- 1 ekor ayam kampung\n- 2 liter air\n- Bumbu: lengkuas, serai, daun jeruk, kunyit, bawang putih, bawang merah\n\n🍲 Cara:\nRebus ayam hingga empuk, tumis bumbu halus, masukkan ke kuah, beri pelengkap bihun, telur, dan sambal.",
+            foto: null
+          },
+          { 
+            id: "resep2", 
+            nama: "Sambal Ibu", 
+            bahan: "🌶️ Bahan:\n- 15 cabai merah keriting\n- 5 cabai rawit\n- 4 siung bawang putih\n- 2 tomat kecil\n- Terasi bakar secukupnya\n- Gula & garam\n\n🍳 Cara:\nGoreng semua bahan, ulek kasar, tumis kembali dengan sedikit minyak.",
+            foto: null
+          }
+        ];
+        simpanKeLocalStorage();
+      }
+      tampilkanDaftarResep();
+    }
 
-        function saveTasks() {
-            localStorage.setItem('taskflow_tasks', JSON.stringify(tasks));
-        }
+    // Simpan ke localStorage
+    function simpanKeLocalStorage() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(resepKeluarga));
+    }
 
-        function setPriority(priority) {
-            currentPriority = priority;
-            document.querySelectorAll('.priority-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
-        }
+    // Menampilkan grid resep dengan foto
+    function tampilkanDaftarResep() {
+      const container = document.getElementById('recipeListContainer');
+      if (!container) return;
 
-        function addTask() {
-            const input = document.getElementById('taskInput');
-            const text = input.value.trim();
+      if (resepKeluarga.length === 0) {
+        container.innerHTML = `<div class="empty-recipes">🍽️ Belum ada resep. Yuk tambah resep keluarga dengan foto! ✨</div>`;
+        return;
+      }
 
-            if (text === '') return;
-
-            const task = {
-                id: Date.now(),
-                text: text,
-                completed: false,
-                priority: currentPriority,
-                createdAt: new Date().toLocaleString('id-ID')
-            };
-
-            tasks.unshift(task);
-            input.value = '';
-            saveTasks();
-            renderTasks();
-        }
-
-        function toggleTask(id) {
-            const task = tasks.find(t => t.id === id);
-            if (task) {
-                task.completed = !task.completed;
-                saveTasks();
-                renderTasks();
-            }
-        }
-
-        function deleteTask(id) {
-            tasks = tasks.filter(t => t.id !== id);
-            saveTasks();
-            renderTasks();
-        }
-
-        function filterTasks(filter) {
-            currentFilter = filter;
-            document.querySelectorAll('.filter-tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            event.target.classList.add('active');
-            renderTasks();
-        }
-
-        function renderTasks() {
-            const container = document.getElementById('tasksList');
-
-            let filteredTasks = tasks;
-
-            if (currentFilter === 'active') {
-                filteredTasks = tasks.filter(t => !t.completed);
-            } else if (currentFilter === 'completed') {
-                filteredTasks = tasks.filter(t => t.completed);
-            } else if (['high', 'medium', 'low'].includes(currentFilter)) {
-                filteredTasks = tasks.filter(t => t.priority === currentFilter);
-            }
-
-            if (filteredTasks.length === 0) {
-                container.innerHTML = `
-          <div class="empty-state">
-            <div class="empty-icon">📋</div>
-            <h3>Tidak ada tugas</h3>
-            <p>Mulai tambahkan tugas baru untuk memulai!</p>
+      let html = '';
+      resepKeluarga.forEach((resep, index) => {
+        const fotoHtml = resep.foto 
+          ? `<img src="${resep.foto}" class="recipe-image" alt="${escapeHtml(resep.nama)}" loading="lazy">`
+          : `<div class="recipe-no-image">🍳</div>`;
+        
+        html += `
+          <div class="recipe-item" data-id="${resep.id}" data-nama="${escapeHtml(resep.nama)}" data-bahan="${escapeHtml(resep.bahan)}" data-foto="${resep.foto ? escapeHtml(resep.foto) : ''}">
+            ${fotoHtml}
+            <div class="recipe-info">📌 ${escapeHtml(resep.nama.length > 25 ? resep.nama.substring(0,22)+'..' : resep.nama)}</div>
           </div>
         `;
-            } else {
-                container.innerHTML = filteredTasks.map(task => `
-          <div class="task-item ${task.priority}">
-            <div class="task-checkbox ${task.completed ? 'checked' : ''}" onclick="toggleTask(${task.id})">
-              ${task.completed ? '✓' : ''}
-            </div>
-            <div class="task-content">
-              <div class="task-text ${task.completed ? 'completed' : ''}">${task.text}</div>
-              <div class="task-meta">
-                <span class="task-time">🕒 ${task.createdAt}</span>
-                <span>📌 ${task.priority === 'high' ? 'Tinggi' : task.priority === 'medium' ? 'Sedang' : 'Rendah'}</span>
-              </div>
-            </div>
-            <div class="task-actions">
-              <button class="btn-icon btn-delete" onclick="deleteTask(${task.id})">🗑️</button>
-            </div>
-          </div>
-        `).join('');
+      });
+      container.innerHTML = html;
+
+      // Pasang event listener ke setiap item resep
+      document.querySelectorAll('.recipe-item').forEach(el => {
+        el.addEventListener('click', (e) => {
+          // Jangan trigger jika klik berasal dari tombol dalam (tidak ada)
+          const nama = el.getAttribute('data-nama');
+          const bahan = el.getAttribute('data-bahan');
+          const foto = el.getAttribute('data-foto');
+          if (nama && bahan) {
+            bukaModal(nama, bahan, foto);
+          } else {
+            const resepFound = resepKeluarga.find(r => r.nama === nama);
+            if (resepFound) {
+              bukaModal(resepFound.nama, resepFound.bahan, resepFound.foto);
             }
+          }
+        });
+      });
+    }
 
-            updateStats();
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str).replace(/[&<>]/g, function(m) {
+        if (m === '&') return '&amp;';
+        if (m === '<') return '&lt;';
+        if (m === '>') return '&gt;';
+        return m;
+      });
+    }
+
+    let resepAktifId = null;
+
+    function bukaModal(nama, bahan, fotoBase64) {
+      document.getElementById('modalJudul').innerText = nama;
+      document.getElementById('modalIsi').innerText = bahan;
+      
+      const fotoArea = document.getElementById('modalFotoArea');
+      if (fotoBase64 && fotoBase64.startsWith('data:image')) {
+        fotoArea.innerHTML = `<img src="${fotoBase64}" class="modal-img" alt="${escapeHtml(nama)}">`;
+      } else {
+        fotoArea.innerHTML = `<div class="modal-no-img">📸🍲</div>`;
+      }
+      
+      // Cari ID resep
+      const found = resepKeluarga.find(r => r.nama === nama);
+      if (found) {
+        resepAktifId = found.id;
+      } else {
+        resepAktifId = nama;
+      }
+      document.getElementById('modalResep').style.display = 'flex';
+    }
+
+    function tutupModal() {
+      document.getElementById('modalResep').style.display = 'none';
+      resepAktifId = null;
+    }
+
+    function hapusResepDariModal() {
+      if (!resepAktifId) {
+        alert("Tidak ada resep yang dipilih.");
+        tutupModal();
+        return;
+      }
+      const index = resepKeluarga.findIndex(r => r.id === resepAktifId);
+      if (index !== -1) {
+        const namaHapus = resepKeluarga[index].nama;
+        if (confirm(`Hapus resep "${namaHapus}" dari Pawon Kita?`)) {
+          resepKeluarga.splice(index, 1);
+          simpanKeLocalStorage();
+          tampilkanDaftarResep();
+          tutupModal();
+          alert(`✨ Resep "${namaHapus}" telah dihapus.`);
         }
+      } else {
+        alert("Resep tidak ditemukan.");
+        tutupModal();
+      }
+    }
 
-        function updateStats() {
-            const total = tasks.length;
-            const completed = tasks.filter(t => t.completed).length;
-            const progress = total > 0 ? (completed / total) * 100 : 0;
+    // Tambah resep baru dengan foto
+    function tambahResepBaru() {
+      const judulInput = document.getElementById('judulResep');
+      const bahanInput = document.getElementById('bahanResep');
+      const judul = judulInput.value.trim();
+      const bahan = bahanInput.value.trim();
 
-            document.getElementById('totalTasks').textContent = total;
-            document.getElementById('completedTasks').textContent = completed;
-            document.getElementById('progressBar').style.width = progress + '%';
+      if (judul === "") {
+        alert("⚠️ Nama masakan tidak boleh kosong!");
+        judulInput.focus();
+        return;
+      }
+      if (bahan === "") {
+        alert("⚠️ Tulis bahan dan cara membuatnya.");
+        bahanInput.focus();
+        return;
+      }
+
+      // Cek duplikat
+      const ada = resepKeluarga.some(r => r.nama.toLowerCase() === judul.toLowerCase());
+      if (ada) {
+        alert(`"${judul}" sudah ada di koleksi.`);
+        return;
+      }
+
+      const newId = "id_" + Date.now() + "_" + Math.floor(Math.random() * 10000);
+      let fotoSimpan = fotoTemporaryBase64 || null;
+      
+      resepKeluarga.push({
+        id: newId,
+        nama: judul,
+        bahan: bahan,
+        foto: fotoSimpan
+      });
+
+      simpanKeLocalStorage();
+      tampilkanDaftarResep();
+
+      // Reset form
+      judulInput.value = '';
+      bahanInput.value = '';
+      document.getElementById('fotoResep').value = '';
+      fotoTemporaryBase64 = null;
+      document.getElementById('previewFoto').innerHTML = '';
+      
+      alert(`🍲 "${judul}" berhasil disimpan ${fotoSimpan ? 'dengan foto 📸' : 'tanpa foto'}!`);
+    }
+
+    // Tambah contoh resep dengan foto demo (base64 kecil)
+    function tambahContohResep() {
+      // Contoh foto sederhana (ikon base64 mini untuk demo)
+      const contohFotoPlaceholder = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23CC563D'/%3E%3Ctext x='50' y='67' font-size='50' text-anchor='middle' fill='white'%3E🍲%3C/text%3E%3C/svg%3E";
+      
+      const contohBaru = [
+        { nama: "Rendang Minang", bahan: "🥩 Bahan:\n- 1 kg daging sapi\n- 3 butir kelapa (santan kental)\n- Bumbu lengkap\n\n🔥 Cara: Masak santan dengan bumbu hingga mengeluarkan minyak, masukkan daging, aduk perlahan sampai kuah menyusut.", foto: contohFotoPlaceholder },
+        { nama: "Pisang Goreng Kriuk", bahan: "🍌 Bahan:\n- 6 pisang kepok\n- 150gr tepung terigu\n- Gula, vanili\n\n🍳 Cara: Campur tepung, gula, vanili, beri air. Celup pisang, goreng hingga keemasan.", foto: contohFotoPlaceholder }
+      ];
+
+      let addedCount = 0;
+      for (let contoh of contohBaru) {
+        const sudahAda = resepKeluarga.some(r => r.nama.toLowerCase() === contoh.nama.toLowerCase());
+        if (!sudahAda) {
+          resepKeluarga.push({
+            id: "contoh_" + Date.now() + "_" + Math.random(),
+            nama: contoh.nama,
+            bahan: contoh.bahan,
+            foto: contoh.foto
+          });
+          addedCount++;
         }
+      }
+      if (addedCount > 0) {
+        simpanKeLocalStorage();
+        tampilkanDaftarResep();
+        alert(`✅ ${addedCount} resep contoh (dengan foto demo) berhasil ditambahkan!`);
+      } else {
+        alert("Resep contoh sudah tersedia semua.");
+      }
+    }
 
-        loadTasks();
+    // Tutup modal saat klik di luar
+    window.onclick = function(event) {
+      const modal = document.getElementById('modalResep');
+      if (event.target === modal) {
+        tutupModal();
+      }
+    }
 
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./service-worker.js')
-                    .then(() => console.log('Service Worker registered'))
-                    .catch(err => console.error('Service Worker error:', err));
-            });
-        }
-    </script>
+    // Service Worker (tetap)
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./service-worker.js')
+        .then(() => console.log('✅ SW registered!'))
+        .catch(err => console.error('SW gagal:', err));
+    }
 
+    // Init
+    muatDataResep();
+  </script>
 </body>
 
 </html>
