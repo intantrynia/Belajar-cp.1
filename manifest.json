@@ -1,7 +1,7 @@
 {
   "id": "./",
-  "name": "PWA Template Responsif",
-  "short_name": "PWA Demo",
+  "name": "Pawon Kita",
+  "short_name": "Pawon Kita",
   "description": "Aplikasi PWA responsif untuk demonstrasi template dasar Progressive Web App dengan dukungan offline dan installable.",
   "start_url": "./index.html",
   "scope": "./",
@@ -12,12 +12,12 @@
   "lang": "id",
   "icons": [
     {
-      "src": "icons/icon-192x192-A.png",
+      "src": "icons/icon-192x192.png.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "icons/icon-512x512-B.png",
+      "src": "icons/icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
