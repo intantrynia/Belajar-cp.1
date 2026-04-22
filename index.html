@@ -4,13 +4,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <!-- PWA Meta -->
+  <meta name="theme-color" content="#CC563D" />
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="theme-color" content="#CC563D" />
-  <link rel="manifest" href="manifest.json" />
-  <link rel="icon" href="icons/icon-192x192-A.png" type="image/png" />
+  <meta name="apple-mobile-web-app-title" content="Pawon Kita">
+
+  <!-- Manifest -->
+  <link rel="manifest" href="/manifest.json" />
+
+  <!-- Icons -->
+  <link rel="icon" href="/icons/icon-192x192.png" type="image/png" />
+  <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
+
   <title>Pawon Kita - Resep Keluarga</title>
+</head>
   <style>
     /* Style Modern untuk Pawon Kita */
     * {
@@ -223,22 +233,6 @@
       color: #CCAB9A;
     }
 
-    .btn-upload {
-      background: #EFE4DD;
-      color: #5C4B42;
-      padding: 8px 16px;
-      border-radius: 40px;
-      font-size: 0.8rem;
-      width: auto;
-      display: inline-block;
-      margin-top: 8px;
-    }
-
-    .btn-upload:hover {
-      background: #E2D4CC;
-      transform: none;
-    }
-
     button {
       background: var(--primary);
       color: white;
@@ -387,28 +381,6 @@
       border-top: 1px solid var(--border);
     }
 
-    /* Test buttons */
-    .test-buttons {
-      display: flex;
-      gap: 12px;
-      margin: 0 16px 12px;
-    }
-    .test-btn {
-      background: #e7dfda;
-      color: #5c4b42;
-      box-shadow: none;
-      font-size: 0.8rem;
-      padding: 8px;
-    }
-    .test-btn:hover {
-      background: #d4c9c2;
-      transform: none;
-    }
-    .file-input-wrapper {
-      position: relative;
-      display: inline-block;
-      width: 100%;
-    }
     input[type="file"] {
       padding: 10px;
       font-size: 0.85rem;
@@ -447,17 +419,11 @@
         <label>📷 Foto Masakan (opsional)</label>
         <input type="file" id="fotoResep" accept="image/jpeg, image/png, image/jpg, image/webp">
         <div id="previewFoto" class="photo-preview"></div>
-        <small style="color:#8B7A6F;">Pilih foto dari galeri atau kamera</small>
+        <small style="color:#8B7A6F;">Pilih foto dari galeri atau kamera (maksimal 2MB)</small>
       </div>
       <button onclick="tambahResepBaru()">📌 Simpan ke Buku Resep</button>
     </section>
   </main>
-
-  <!-- Tombol testing -->
-  <div class="test-buttons">
-    <button class="test-btn" onclick="alert('🔧 Tombol testing — Pawon Kita dengan fitur foto siap!')">🧪 Tombol 1 (Test)</button>
-    <button class="test-btn" onclick="tambahContohResep()">✨ Tambah Contoh Resep</button>
-  </div>
 
   <!-- Modal Detail Resep dengan Foto -->
   <div id="modalResep" class="modal">
@@ -570,7 +536,7 @@
       }
 
       let html = '';
-      resepKeluarga.forEach((resep, index) => {
+      resepKeluarga.forEach((resep) => {
         const fotoHtml = resep.foto 
           ? `<img src="${resep.foto}" class="recipe-image" alt="${escapeHtml(resep.nama)}" loading="lazy">`
           : `<div class="recipe-no-image">🍳</div>`;
@@ -587,7 +553,6 @@
       // Pasang event listener ke setiap item resep
       document.querySelectorAll('.recipe-item').forEach(el => {
         el.addEventListener('click', (e) => {
-          // Jangan trigger jika klik berasal dari tombol dalam (tidak ada)
           const nama = el.getAttribute('data-nama');
           const bahan = el.getAttribute('data-bahan');
           const foto = el.getAttribute('data-foto');
@@ -709,38 +674,6 @@
       document.getElementById('previewFoto').innerHTML = '';
       
       alert(`🍲 "${judul}" berhasil disimpan ${fotoSimpan ? 'dengan foto 📸' : 'tanpa foto'}!`);
-    }
-
-    // Tambah contoh resep dengan foto demo (base64 kecil)
-    function tambahContohResep() {
-      // Contoh foto sederhana (ikon base64 mini untuk demo)
-      const contohFotoPlaceholder = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23CC563D'/%3E%3Ctext x='50' y='67' font-size='50' text-anchor='middle' fill='white'%3E🍲%3C/text%3E%3C/svg%3E";
-      
-      const contohBaru = [
-        { nama: "Rendang Minang", bahan: "🥩 Bahan:\n- 1 kg daging sapi\n- 3 butir kelapa (santan kental)\n- Bumbu lengkap\n\n🔥 Cara: Masak santan dengan bumbu hingga mengeluarkan minyak, masukkan daging, aduk perlahan sampai kuah menyusut.", foto: contohFotoPlaceholder },
-        { nama: "Pisang Goreng Kriuk", bahan: "🍌 Bahan:\n- 6 pisang kepok\n- 150gr tepung terigu\n- Gula, vanili\n\n🍳 Cara: Campur tepung, gula, vanili, beri air. Celup pisang, goreng hingga keemasan.", foto: contohFotoPlaceholder }
-      ];
-
-      let addedCount = 0;
-      for (let contoh of contohBaru) {
-        const sudahAda = resepKeluarga.some(r => r.nama.toLowerCase() === contoh.nama.toLowerCase());
-        if (!sudahAda) {
-          resepKeluarga.push({
-            id: "contoh_" + Date.now() + "_" + Math.random(),
-            nama: contoh.nama,
-            bahan: contoh.bahan,
-            foto: contoh.foto
-          });
-          addedCount++;
-        }
-      }
-      if (addedCount > 0) {
-        simpanKeLocalStorage();
-        tampilkanDaftarResep();
-        alert(`✅ ${addedCount} resep contoh (dengan foto demo) berhasil ditambahkan!`);
-      } else {
-        alert("Resep contoh sudah tersedia semua.");
-      }
     }
 
     // Tutup modal saat klik di luar
