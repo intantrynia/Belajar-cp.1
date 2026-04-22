@@ -20,14 +20,20 @@
       "src": "./icons/icon_512x512.png",
       "sizes": "512x512",
       "type": "image/png"
-    },
-    {
-      "src": "./icons/screenshot.png",
-      "sizes": "512x512",
-      "type": "image/png" 
     }
 
   ],
+
+  "screenshots": [
+  {
+    "src": "./icons/screenshot.png",
+    "sizes": "1080x1920",
+    "type": "image/png",
+    "form_factor": "narrow",
+    "label": "Tampilan Utama Pawon Kita"
+  }
+],
+
   "shortcuts": [
     {
       "name": "Buka Beranda",
