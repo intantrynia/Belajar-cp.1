@@ -2,7 +2,7 @@
   "id": "./",
   "name": "Pawon Kita",
   "short_name": "Pawon Kita",
-  "description": "Aplikasi PWA responsif untuk demonstrasi template dasar Progressive Web App dengan dukungan offline dan installable.",
+  "description": "Aplikasi menyimpan resep masakan keluarga",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
