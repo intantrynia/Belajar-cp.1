@@ -6,10 +6,12 @@
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
+  "display_override": ["standalone", "window-controls-overlay"],
   "background_color": "#4F46E5",
   "theme_color": "#4F46E5",
   "orientation": "portrait",
   "lang": "id",
+  "dir": "ltr",
   "icons": [
     {
       "src": "./icons/icon_192x192.png",
