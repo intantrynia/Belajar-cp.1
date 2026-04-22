@@ -26,8 +26,8 @@
 
   "screenshots": [
   {
-    "src": "./icons/screenshot.png",
-    "sizes": "1080x1920",
+    "src": "./icons/screenshot1.png",
+    "sizes": "512x512",
     "type": "image/png",
     "form_factor": "narrow",
     "label": "Tampilan Utama Pawon Kita"
